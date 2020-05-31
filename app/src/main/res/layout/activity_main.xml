@@ -4,32 +4,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/btnNovaLista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/nova_lista"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="667dp" />
-
-    <EditText
-        android:id="@+id/txtNovaLista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/nova_lista"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="50dp"
-        android:autofillHints="" />
-
-    <ListView
-        android:id="@+id/listLista"
-        android:layout_width="409dp"
-        android:layout_height="570dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="95dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".MainActivity"/>
