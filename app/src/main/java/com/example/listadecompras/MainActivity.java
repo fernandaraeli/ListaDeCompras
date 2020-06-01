@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        produtos = (EditText) findViewById(R.id.editText);
-        minhaLista = (ListView) findViewById(R.id.listView);
-        incluir = (Button) findViewById(R.id.button);
+        produtos = (EditText) findViewById(R.id.inserirTexto);
+        minhaLista = (ListView) findViewById(R.id.listaProdutos);
+        incluir = (Button) findViewById(R.id.inserir);
 
         listaProdutos();
 
