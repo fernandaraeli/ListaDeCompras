@@ -2,6 +2,8 @@ package com.example.listadecompras;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                excluirProduto(ids.get(position));
+                //excluirProduto(ids.get(position));
+                alertaExcluirProduto(position);
                 return false;
             }
         });
@@ -90,6 +93,20 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void alertaExcluirProduto(Integer selecionado){
+        String produtoSelecionado = produto.get(selecionado);
+        final Integer numeroId = selecionado;
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Aviso").setMessage("Deseja apagar produto: "+produtoSelecionado+" ?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        excluirProduto(ids.get(numeroId));
+                    }
+                }).setNegativeButton("Não", null).show();
     }
 
 
