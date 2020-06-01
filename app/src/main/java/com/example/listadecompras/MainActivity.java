@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         listaProdutos();
 
-
         minhaLista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
