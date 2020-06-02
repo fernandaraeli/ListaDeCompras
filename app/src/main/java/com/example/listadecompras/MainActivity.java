@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         produtos = (EditText) findViewById(R.id.inserirTexto);
         minhaLista = (ListView) findViewById(R.id.listaProdutos);
         incluir = (Button) findViewById(R.id.inserir);
