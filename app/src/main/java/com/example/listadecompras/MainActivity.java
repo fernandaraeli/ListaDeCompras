@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             itensAdaptador = new ArrayAdapter<String>(getApplicationContext(),
-                    android.R.layout.simple_list_item_2,
+                    android.R.layout.simple_selectable_list_item,
                     android.R.id.text1, produto);
 
             minhaLista.setAdapter(itensAdaptador);
