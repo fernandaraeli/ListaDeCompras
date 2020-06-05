@@ -60,6 +60,7 @@ public class MainActivity2 extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //excluirProduto(ids.get(position));
                 alertaExcluirProduto(position);
+
                 return false;
             }
         });
