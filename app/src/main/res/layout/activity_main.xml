@@ -39,7 +39,6 @@
         app:layout_constraintTop_toBottomOf="@+id/inserirTexto"
         tools:ignore="MissingConstraints,UnknownId">
 
-
     </ListView>
 
     <Button
@@ -48,13 +47,13 @@
         android:layout_height="53dp"
         android:layout_marginBottom="16dp"
         android:background="#55FDAFC9"
-        android:text="Inserir Produto"
+        android:text="Inserir Compras"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

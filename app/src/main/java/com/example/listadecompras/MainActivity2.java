@@ -1,7 +1,5 @@
 package com.example.listadecompras;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,16 +13,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity {
 
     private EditText produtos;
     private ListView minhaLista;
     private Button incluir;
+    private TextView compra;
+    public  String parametro;
+
 
     private SQLiteDatabase bd;
 
@@ -33,14 +36,21 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> produto;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
+
+        Intent intent = getIntent();
+        parametro = (String) intent.getSerializableExtra("compra");
 
         produtos = (EditText) findViewById(R.id.inserirTexto);
         minhaLista = (ListView) findViewById(R.id.listaProdutos);
         incluir = (Button) findViewById(R.id.inserir);
+        compra = (TextView) findViewById(R.id.compra);
+        compra.setText(parametro);
+
 
         listaProdutos();
 
@@ -54,16 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        minhaLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                intent.putExtra("compra", produto.get(position));
-                startActivity(intent);
-            }
-        });
-
         incluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,16 +72,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void adicionarProduto(String novoProduto) {
         try{
             if(novoProduto.equals("")){
-                Toast.makeText(MainActivity.this, "Insira uma compra", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity2.this, "Insira um produto", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(MainActivity.this, "Compra "+novoProduto+" Inserida!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity2.this, "Produto "+novoProduto+" Inserido", Toast.LENGTH_SHORT).show();
                 produtos.setText("");
-                bd.execSQL("INSERT INTO minhalista(produto) VALUES ('"+novoProduto+"')");
+                bd.execSQL("INSERT INTO "+parametro+"(compra) VALUES ('"+novoProduto+"')");
                 listaProdutos();
             }
 
@@ -94,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void excluirProduto(Integer id) {
         try{
-            bd.execSQL("DELETE FROM minhaLista WHERE id="+id);
-            Toast.makeText(MainActivity.this, "Compra Removido", Toast.LENGTH_SHORT).show();
+            bd.execSQL("DELETE FROM "+parametro+" WHERE id="+id);
+            Toast.makeText(MainActivity2.this, "Produto Removido", Toast.LENGTH_SHORT).show();
             listaProdutos();
 
         }
@@ -108,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
         String produtoSelecionado = produto.get(selecionado);
         final Integer numeroId = selecionado;
 
-        new AlertDialog.Builder(MainActivity.this)
-                .setTitle("Aviso").setMessage("Deseja apagar compra: "+produtoSelecionado+" ?")
+        new AlertDialog.Builder(MainActivity2.this)
+                .setTitle("Aviso").setMessage("Deseja apagar produto: "+produtoSelecionado+" ?")
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -122,16 +124,16 @@ public class MainActivity extends AppCompatActivity {
     private void listaProdutos() {
         try {
             bd = openOrCreateDatabase("listaSupermercado", MODE_PRIVATE, null);
-            bd.execSQL("CREATE TABLE IF NOT EXISTS minhalista (id INTEGER PRIMARY KEY AUTOINCREMENT, produto VARCHAR)");
+            bd.execSQL("CREATE TABLE IF NOT EXISTS "+parametro+" (id INTEGER PRIMARY KEY AUTOINCREMENT, compra VARCHAR)");
 
             //String novoProduto = produtos.getText().toString();
             //bd.execSQL("INSERT INTO minhalista(produto) VALUES ('"+novoProduto+"')");
 
             //Cursor cursor = bd.rawQuery("SELECT * FROM minhalista", null);
-            Cursor cursor = bd.rawQuery("SELECT * FROM minhalista ORDER BY id DESC", null);
+            Cursor cursor = bd.rawQuery("SELECT * FROM "+parametro+" ORDER BY id DESC", null);
 
             int indiceColunaId = cursor.getColumnIndex("id");
-            int indiceColunaTarefa = cursor.getColumnIndex("produto");
+            int indiceColunaTarefa = cursor.getColumnIndex("compra");
 
             ids = new ArrayList<Integer>();
             produto = new ArrayList<String>();
@@ -145,22 +147,13 @@ public class MainActivity extends AppCompatActivity {
 
             cursor.moveToFirst();
             while (cursor != null) {
-                Log.i("LogX:", "ID:" + cursor.getString(indiceColunaId) + "Compra: " + cursor.getString(indiceColunaTarefa));
+                Log.i("LogX:", "ID:" + cursor.getString(indiceColunaId) + "Produto: " + cursor.getString(indiceColunaTarefa));
                 produto.add(cursor.getString(indiceColunaTarefa));
                 ids.add(Integer.parseInt(cursor.getString(indiceColunaId)));
                 cursor.moveToNext();
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
 }

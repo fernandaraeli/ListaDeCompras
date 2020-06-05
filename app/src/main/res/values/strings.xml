@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Lista de Compras</string>
-    <string name="nova_lista">Nova Lista</string>
-
+    <string name="compra"></string>
+    <string name="inserir_produto">Inserir Produto</string>
 </resources>
